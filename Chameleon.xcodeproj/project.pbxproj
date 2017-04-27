@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2710D7C01EB1994B00766736 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710D7BF1EB1994B00766736 /* MyUtils.swift */; };
+		2710D7C21EB1A5E900766736 /* Fly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710D7C11EB1A5E900766736 /* Fly.swift */; };
 		277B004D1EADB8B200378C12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B004C1EADB8B200378C12 /* AppDelegate.swift */; };
-		277B004F1EADB8B200378C12 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 277B004E1EADB8B200378C12 /* GameScene.sks */; };
 		277B00511EADB8B200378C12 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 277B00501EADB8B200378C12 /* Actions.sks */; };
 		277B00531EADB8B200378C12 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B00521EADB8B200378C12 /* GameScene.swift */; };
 		277B00551EADB8B200378C12 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B00541EADB8B200378C12 /* GameViewController.swift */; };
@@ -18,9 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2710D7BF1EB1994B00766736 /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
+		2710D7C11EB1A5E900766736 /* Fly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fly.swift; sourceTree = "<group>"; };
 		277B00491EADB8B200378C12 /* Chameleon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chameleon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		277B004C1EADB8B200378C12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		277B004E1EADB8B200378C12 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		277B00501EADB8B200378C12 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		277B00521EADB8B200378C12 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		277B00541EADB8B200378C12 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -61,13 +63,14 @@
 			isa = PBXGroup;
 			children = (
 				277B004C1EADB8B200378C12 /* AppDelegate.swift */,
-				277B004E1EADB8B200378C12 /* GameScene.sks */,
 				277B00501EADB8B200378C12 /* Actions.sks */,
 				277B00521EADB8B200378C12 /* GameScene.swift */,
+				2710D7C11EB1A5E900766736 /* Fly.swift */,
 				277B00541EADB8B200378C12 /* GameViewController.swift */,
 				277B00561EADB8B200378C12 /* Main.storyboard */,
 				277B00591EADB8B200378C12 /* Assets.xcassets */,
 				277B005B1EADB8B200378C12 /* LaunchScreen.storyboard */,
+				2710D7BF1EB1994B00766736 /* MyUtils.swift */,
 				277B005E1EADB8B200378C12 /* Info.plist */,
 			);
 			path = Chameleon;
@@ -105,6 +108,7 @@
 				TargetAttributes = {
 					277B00481EADB8B200378C12 = {
 						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = MHY37T985C;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -133,7 +137,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				277B00581EADB8B200378C12 /* Main.storyboard in Resources */,
-				277B004F1EADB8B200378C12 /* GameScene.sks in Resources */,
 				277B005A1EADB8B200378C12 /* Assets.xcassets in Resources */,
 				277B005D1EADB8B200378C12 /* LaunchScreen.storyboard in Resources */,
 				277B00511EADB8B200378C12 /* Actions.sks in Resources */,
@@ -147,9 +150,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2710D7C21EB1A5E900766736 /* Fly.swift in Sources */,
 				277B00531EADB8B200378C12 /* GameScene.swift in Sources */,
 				277B00551EADB8B200378C12 /* GameViewController.swift in Sources */,
 				277B004D1EADB8B200378C12 /* AppDelegate.swift in Sources */,
+				2710D7C01EB1994B00766736 /* MyUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +279,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = MHY37T985C;
 				INFOPLIST_FILE = Chameleon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mike.Chameleon;
@@ -286,6 +292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = MHY37T985C;
 				INFOPLIST_FILE = Chameleon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mike.Chameleon;
@@ -313,6 +320,7 @@
 				277B00631EADB8B200378C12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -10,80 +10,79 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    var flyCount = 5
+    var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
+    var currentEyeColor = UIColor()
+    var fliesRemaining = Array<SKSpriteNode>()
+    //var colorsRemaining = Array<UIColor>()
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    func createFly(){
+        let fly = SKSpriteNode(imageNamed: "fly")
+        fly.setScale(0.08)
+        
+        let flyPosition = CGPoint(x: CGFloat.random(min: 0 + fly.size.width, max: (scene?.size.width)! - fly.size.width), y: CGFloat.random(min: #imageLiteral(resourceName: "chameleon").size.height, max: (scene?.size.height)! - fly.size.height))
+        let flyColorIndex = Int(arc4random_uniform(UInt32(availableColors.count)))
+        let flyColor = availableColors[flyColorIndex]
+        fly.position = flyPosition
+        fly.color = flyColor
+        fly.colorBlendFactor = 1
+        fly.name = "fly"
+        fliesRemaining.append(fly)
+        //colorsRemaining.append(flyColor)
+        addChild(fly)
+    }
     
+    func flyTapped(fly: SKSpriteNode){
+        if (fly.color == currentEyeColor){
+            //Animation
+            if let flyIndex = fliesRemaining.index(of: fly){
+                fliesRemaining.remove(at: flyIndex)
+                fly.removeFromParent()
+                updateEyeColor()
+            }
+        }else{
+            print("WRONG!")
+        }
+    }
+    
+    func updateEyeColor(){
+        if fliesRemaining.count > 0{
+            let EyeColorIndex = Int(arc4random_uniform(UInt32(fliesRemaining.count)))
+            print(EyeColorIndex)
+            print(fliesRemaining.count)
+            currentEyeColor = (fliesRemaining[EyeColorIndex]).color
+            scene?.backgroundColor = currentEyeColor
+        }else{
+            flyCount += 3
+            for _ in 1...flyCount{
+                createFly()
+            }
+            updateEyeColor()
+        }
+    }
     override func didMove(to view: SKView) {
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+        for _ in 0...flyCount{
+            createFly()
         }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        let chameleon = SKSpriteNode(imageNamed: "chameleon")
+        updateEyeColor()
+        chameleon.setScale(1.5)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        chameleon.position = CGPoint(x:scene!.size.width - chameleon.size.width/5, y:0)
+        addChild(chameleon)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        if let touch = touches.first{
+            let location = touch.location(in: self)
+            let tappedNode = nodes(at: location).first
+            
+            if tappedNode?.name == "fly"{
+                flyTapped(fly: tappedNode as! SKSpriteNode)
+            }
+            
         }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
     }
 }
