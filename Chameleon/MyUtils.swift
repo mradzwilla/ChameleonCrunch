@@ -9,6 +9,7 @@
 import Foundation
 import CoreGraphics
 import AVFoundation
+import GameKit
 
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
@@ -119,4 +120,15 @@ func playBackgroundMusic(filename: String) {
     backgroundMusicPlayer.numberOfLoops = -1
     backgroundMusicPlayer.prepareToPlay()
     backgroundMusicPlayer.play()
+}
+
+extension SKAction {
+    static func oscillation(amplitude a: CGFloat, timePeriod t: CGFloat, midPoint: CGPoint) -> SKAction {
+        let action = SKAction.customAction(withDuration: Double(t)) { node, currentTime in
+            let displacement = a * sin(2 * π * currentTime / t)
+            node.position.y = midPoint.y + displacement
+        }
+        
+        return action
+    }
 }

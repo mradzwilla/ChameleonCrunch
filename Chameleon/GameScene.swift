@@ -10,9 +10,18 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    //Need to create level class manager
+    //Create flySpace variable
+    //Add lives to bottom
+    //Have timer be reducing bar at top
+    
+    var chameleon = SKSpriteNode(imageNamed: "chameleon")
+    var chameleonStatic = SKSpriteNode(imageNamed: "chameleon-eye")
+
+
     var flyCount = 1
     var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
-    var currentEyeColor = UIColor()
+    var currentColor = UIColor()
     var fliesRemaining = Array<Fly>()
     
     func createFly(){
@@ -37,29 +46,29 @@ class GameScene: SKScene {
     }
     func flyTapped(fly: Fly)-> Bool{
         
-        if (fly.color == currentEyeColor){
+        if (fly.color == currentColor){
             //Animation
             if let flyIndex = fliesRemaining.index(of: fly){
                 fliesRemaining.remove(at: flyIndex)
                 fly.removeFromParent()
-                updateEyeColor()
+                updateColor()
                 return true
             }
         }
             return false
     }
     
-    func updateEyeColor(){
+    func updateColor(){
         if fliesRemaining.count > 0{
-            let EyeColorIndex = Int(arc4random_uniform(UInt32(fliesRemaining.count)))
-            currentEyeColor = (fliesRemaining[EyeColorIndex]).color
-            scene?.backgroundColor = currentEyeColor
+            let ColorIndex = Int(arc4random_uniform(UInt32(fliesRemaining.count)))
+            currentColor = (fliesRemaining[ColorIndex]).color
+            chameleon.color = currentColor
         }else{
             flyCount += 3
             for _ in 1...flyCount{
                 createFly()
             }
-            updateEyeColor()
+            updateColor()
         }
     }
     override func didMove(to view: SKView) {
@@ -68,12 +77,17 @@ class GameScene: SKScene {
             createFly()
         }
         
-        let chameleon = SKSpriteNode(imageNamed: "chameleon")
-        updateEyeColor()
+        updateColor()
         chameleon.setScale(1.5)
+        chameleonStatic.setScale(1.5)
         
         chameleon.position = CGPoint(x:scene!.size.width - chameleon.size.width/5, y:0)
+        chameleonStatic.position = CGPoint(x:scene!.size.width - chameleon.size.width/5, y:0)
+        
+        chameleon.colorBlendFactor = 1
+        chameleon.alpha = 1
         addChild(chameleon)
+        addChild(chameleonStatic)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

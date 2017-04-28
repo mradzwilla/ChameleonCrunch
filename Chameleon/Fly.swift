@@ -10,8 +10,10 @@ import Foundation
 import GameKit
 
 class Fly: SKSpriteNode {
-    //Don't need this now, but will probably need it in the future to build off of
+    //  Need to create variables to pass to movement functions
     let moveDuration:CGFloat = 3.0
+    let π = CGFloat(M_PI)
+    
     init() {
         let texture = SKTexture(imageNamed: "fly")
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
@@ -54,8 +56,15 @@ class Fly: SKSpriteNode {
         let actionReturnFromRight = SKAction.moveTo(x: initialPositionX, duration: TimeInterval(rightTravelDuration))
         self.run(SKAction.repeatForever(SKAction.sequence([actionMoveLeft, actionReturnFromLeft, actionMoveRight, actionReturnFromRight])))
     }
+    
+    func oscillate(){
+        let oscillate = SKAction.oscillation(amplitude: 100, timePeriod: 1, midPoint: self.position)
+        self.run(SKAction.repeatForever(oscillate))
+        //self.run(SKAction.moveBy(x: size.width, y: 0, duration: 5))
+    }
     func moveFly() {
         moveLinear()
+        oscillate()
     }
     
 }
