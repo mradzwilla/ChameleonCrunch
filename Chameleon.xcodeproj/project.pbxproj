@@ -16,6 +16,7 @@
 		277B00581EADB8B200378C12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277B00561EADB8B200378C12 /* Main.storyboard */; };
 		277B005A1EADB8B200378C12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 277B00591EADB8B200378C12 /* Assets.xcassets */; };
 		277B005D1EADB8B200378C12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277B005B1EADB8B200378C12 /* LaunchScreen.storyboard */; };
+		43CC701B1EB3E07700C4D00F /* levelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CC701A1EB3E07700C4D00F /* levelManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		277B00591EADB8B200378C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		277B005C1EADB8B200378C12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		277B005E1EADB8B200378C12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43CC701A1EB3E07700C4D00F /* levelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = levelManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				277B004C1EADB8B200378C12 /* AppDelegate.swift */,
 				277B00501EADB8B200378C12 /* Actions.sks */,
+				43CC701A1EB3E07700C4D00F /* levelManager.swift */,
 				277B00521EADB8B200378C12 /* GameScene.swift */,
 				2710D7C11EB1A5E900766736 /* Fly.swift */,
 				277B00541EADB8B200378C12 /* GameViewController.swift */,
@@ -151,6 +154,7 @@
 			files = (
 				2710D7C21EB1A5E900766736 /* Fly.swift in Sources */,
 				277B00531EADB8B200378C12 /* GameScene.swift in Sources */,
+				43CC701B1EB3E07700C4D00F /* levelManager.swift in Sources */,
 				277B00551EADB8B200378C12 /* GameViewController.swift in Sources */,
 				277B004D1EADB8B200378C12 /* AppDelegate.swift in Sources */,
 				2710D7C01EB1994B00766736 /* MyUtils.swift in Sources */,

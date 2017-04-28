@@ -10,22 +10,24 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    //Need to create level class manager
+    //Probably would be good to create update method
     //Create flySpace variable
     //Add lives to bottom
     //Have timer be reducing bar at top
     
     var chameleon = SKSpriteNode(imageNamed: "chameleon")
     var chameleonStatic = SKSpriteNode(imageNamed: "chameleon-eye")
-
-
-    var flyCount = 1
+    
+    
     var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
     var currentColor = UIColor()
     var fliesRemaining = Array<Fly>()
+    var level = levelManager()
+    
+    var flyCount = levelManager().flyCount
     
     func createFly(){
-        let fly = Fly()
+        let fly = Fly(speed: level.randomFlySpeed(), oscillation: level.randomFlyOscillation())
         fly.setScale(0.08)
         
         let flyPosition = CGPoint(x: CGFloat.random(min: 0 + fly.size.width, max: (scene?.size.width)! - fly.size.width), y: CGFloat.random(min: #imageLiteral(resourceName: "chameleon").size.height, max: (scene?.size.height)! - fly.size.height))
@@ -55,7 +57,7 @@ class GameScene: SKScene {
                 return true
             }
         }
-            return false
+        return false
     }
     
     func updateColor(){
@@ -64,9 +66,11 @@ class GameScene: SKScene {
             currentColor = (fliesRemaining[ColorIndex]).color
             chameleon.color = currentColor
         }else{
-            flyCount += 3
+            level.nextLevel()
+            flyCount = level.flyCount
             for _ in 1...flyCount{
                 createFly()
+                print("Created flies: \(flyCount)")
             }
             updateColor()
         }
