@@ -13,11 +13,10 @@ class GameScene: SKScene {
     var flyCount = 5
     var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
     var currentEyeColor = UIColor()
-    var fliesRemaining = Array<SKSpriteNode>()
-    //var colorsRemaining = Array<UIColor>()
+    var fliesRemaining = Array<Fly>()
     
     func createFly(){
-        let fly = SKSpriteNode(imageNamed: "fly")
+        let fly = Fly()
         fly.setScale(0.08)
         
         let flyPosition = CGPoint(x: CGFloat.random(min: 0 + fly.size.width, max: (scene?.size.width)! - fly.size.width), y: CGFloat.random(min: #imageLiteral(resourceName: "chameleon").size.height, max: (scene?.size.height)! - fly.size.height))
@@ -30,19 +29,24 @@ class GameScene: SKScene {
         fliesRemaining.append(fly)
         //colorsRemaining.append(flyColor)
         addChild(fly)
+        moveFly(fly)
     }
     
-    func flyTapped(fly: SKSpriteNode){
+    func moveFly(_ fly: Fly){
+        fly.moveFly()
+    }
+    func flyTapped(fly: Fly)-> Bool{
+        
         if (fly.color == currentEyeColor){
             //Animation
             if let flyIndex = fliesRemaining.index(of: fly){
                 fliesRemaining.remove(at: flyIndex)
                 fly.removeFromParent()
                 updateEyeColor()
+                return true
             }
-        }else{
-            print("WRONG!")
         }
+            return false
     }
     
     func updateEyeColor(){
@@ -77,12 +81,16 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first{
             let location = touch.location(in: self)
-            let tappedNode = nodes(at: location).first
+            let tappedNodes = nodes(at: location)
             
-            if tappedNode?.name == "fly"{
-                flyTapped(fly: tappedNode as! SKSpriteNode)
+            for node in tappedNodes{
+                if node.name == "fly"{
+                    let wasFlyRemoved = flyTapped(fly: node as! Fly)
+                    if wasFlyRemoved == true{
+                        return
+                    }
+                }
             }
-            
         }
     }
 }

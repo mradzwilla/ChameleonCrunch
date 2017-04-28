@@ -20,7 +20,6 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         scene.size = skView.bounds.size
         scene.scaleMode = .aspectFill
-        scene.backgroundColor = SKColor(red:0.11, green:0.83, blue:0.80, alpha:1.0)
         skView.presentScene(scene)
     }
 }
