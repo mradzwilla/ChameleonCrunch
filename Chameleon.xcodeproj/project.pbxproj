@@ -108,8 +108,7 @@
 				TargetAttributes = {
 					277B00481EADB8B200378C12 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = MHY37T985C;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -279,8 +278,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MHY37T985C;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Chameleon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mike.Chameleon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -292,8 +292,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MHY37T985C;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Chameleon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mike.Chameleon;
 				PRODUCT_NAME = "$(TARGET_NAME)";

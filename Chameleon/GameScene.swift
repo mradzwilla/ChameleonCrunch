@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    var flyCount = 5
+    var flyCount = 1
     var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
     var currentEyeColor = UIColor()
     var fliesRemaining = Array<Fly>()
@@ -52,8 +52,6 @@ class GameScene: SKScene {
     func updateEyeColor(){
         if fliesRemaining.count > 0{
             let EyeColorIndex = Int(arc4random_uniform(UInt32(fliesRemaining.count)))
-            print(EyeColorIndex)
-            print(fliesRemaining.count)
             currentEyeColor = (fliesRemaining[EyeColorIndex]).color
             scene?.backgroundColor = currentEyeColor
         }else{

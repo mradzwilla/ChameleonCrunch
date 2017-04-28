@@ -11,7 +11,7 @@ import GameKit
 
 class Fly: SKSpriteNode {
     //Don't need this now, but will probably need it in the future to build off of
-
+    let moveDuration:CGFloat = 3.0
     init() {
         let texture = SKTexture(imageNamed: "fly")
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
@@ -42,11 +42,20 @@ class Fly: SKSpriteNode {
             velocity.y = -velocity.y }
     }
     
+    func moveLinear(){
+        let sceneSize = (self.scene?.size.width)!
+        let leftTravelDuration = ((self.position.x)/sceneSize) * moveDuration/2
+        let rightTravelDuration = ((sceneSize - self.position.x)/sceneSize) * moveDuration/2
+        let initialPositionX = self.position.x
+        print((scene?.size.width)!)
+        let actionMoveLeft = SKAction.moveTo(x: 0, duration: TimeInterval(leftTravelDuration))
+        let actionReturnFromLeft = SKAction.moveTo(x: initialPositionX, duration: TimeInterval(leftTravelDuration))
+        let actionMoveRight = SKAction.moveTo(x: (self.scene?.size.width)!, duration: TimeInterval(rightTravelDuration))
+        let actionReturnFromRight = SKAction.moveTo(x: initialPositionX, duration: TimeInterval(rightTravelDuration))
+        self.run(SKAction.repeatForever(SKAction.sequence([actionMoveLeft, actionReturnFromLeft, actionMoveRight, actionReturnFromRight])))
+    }
     func moveFly() {
-        
-        let actionMoveLeft = SKAction.moveTo(x: 0, duration: 2.0)
-        let actionMoveRight = SKAction.moveTo(x: (self.scene?.size.width)!, duration: 2.0)
-        self.run(SKAction.repeatForever(SKAction.sequence([actionMoveLeft, actionMoveRight])))
+        moveLinear()
     }
     
 }
