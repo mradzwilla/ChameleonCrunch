@@ -19,7 +19,6 @@ class GameScene: SKScene {
     let chameleonStatic = SKSpriteNode(imageNamed: "chameleon-eye")
     let background = SKSpriteNode(imageNamed: "rainforest")
     
-    var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
     var currentColor = UIColor()
     var fliesRemaining = Array<Fly>()
     var level = levelManager()
@@ -32,8 +31,8 @@ class GameScene: SKScene {
         
         let flyPosition = CGPoint(x: CGFloat.random(min: 0 + fly.size.width, max: (scene?.size.width)! - fly.size.width), y: CGFloat.random(min: #imageLiteral(resourceName: "chameleon").size.height, max: (scene?.size.height)! - fly.size.height))
         fly.position = flyPosition
-        let flyColorIndex = Int(arc4random_uniform(UInt32(availableColors.count)))
-        let flyColor = availableColors[flyColorIndex]
+        let flyColorIndex = Int(arc4random_uniform(UInt32(level.availableColors.count)))
+        let flyColor = level.availableColors[flyColorIndex]
         fliesRemaining.append(fly)
         //colorsRemaining.append(flyColor)
         fly.color = flyColor
@@ -78,7 +77,7 @@ class GameScene: SKScene {
     }
     
     func rotateEye(){
-        let rotateAction = SKAction.rotate(byAngle: CGFloat(M_PI), duration: 0.5)
+        let rotateAction = SKAction.rotate(byAngle: 2 * CGFloat(M_PI), duration: 0.5)
         chameleonStatic.run(rotateAction)
     }
     override func didMove(to view: SKView) {
@@ -86,10 +85,7 @@ class GameScene: SKScene {
         background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
         background.zPosition = -1
         addChild(background)
-        for _ in 0...flyCount{
-            createFly()
-        }
-        
+
         updateColor()
         chameleon.setScale(1.5)
         chameleonStatic.setScale(1)
