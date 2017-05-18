@@ -20,6 +20,7 @@ class Fly: SKSpriteNode {
         moveDuration = speed
         oscillationAmount = oscillation
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        name = "fly"
     }
     
     required init(coder aDecoder: NSCoder) {

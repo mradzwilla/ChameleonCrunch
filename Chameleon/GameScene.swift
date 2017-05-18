@@ -18,7 +18,6 @@ class GameScene: SKScene {
     var chameleon = SKSpriteNode(imageNamed: "chameleon")
     var chameleonStatic = SKSpriteNode(imageNamed: "chameleon-eye")
     
-    
     var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
     var currentColor = UIColor()
     var fliesRemaining = Array<Fly>()
@@ -31,14 +30,15 @@ class GameScene: SKScene {
         fly.setScale(0.08)
         
         let flyPosition = CGPoint(x: CGFloat.random(min: 0 + fly.size.width, max: (scene?.size.width)! - fly.size.width), y: CGFloat.random(min: #imageLiteral(resourceName: "chameleon").size.height, max: (scene?.size.height)! - fly.size.height))
+        fly.position = flyPosition
         let flyColorIndex = Int(arc4random_uniform(UInt32(availableColors.count)))
         let flyColor = availableColors[flyColorIndex]
-        fly.position = flyPosition
-        fly.color = flyColor
-        fly.colorBlendFactor = 1
-        fly.name = "fly"
         fliesRemaining.append(fly)
         //colorsRemaining.append(flyColor)
+        fly.color = flyColor
+        fly.colorBlendFactor = 1
+        fly.alpha = 1
+        
         addChild(fly)
         moveFly(fly)
     }
@@ -47,7 +47,7 @@ class GameScene: SKScene {
         fly.moveFly()
     }
     func flyTapped(fly: Fly)-> Bool{
-        
+        print("Fly tapped")
         if (fly.color == currentColor){
             //Animation
             if let flyIndex = fliesRemaining.index(of: fly){
@@ -72,8 +72,14 @@ class GameScene: SKScene {
                 createFly()
                 print("Created flies: \(flyCount)")
             }
+            rotateEye()
             updateColor()
         }
+    }
+    
+    func rotateEye(){
+        let rotateAction = SKAction.rotate(byAngle: CGFloat(M_PI), duration: 0.5)
+        chameleonStatic.run(rotateAction)
     }
     override func didMove(to view: SKView) {
         
@@ -83,22 +89,22 @@ class GameScene: SKScene {
         
         updateColor()
         chameleon.setScale(1.5)
-        chameleonStatic.setScale(1.5)
+        chameleonStatic.setScale(1)
         
         chameleon.position = CGPoint(x:scene!.size.width - chameleon.size.width/5, y:0)
-        chameleonStatic.position = CGPoint(x:scene!.size.width - chameleon.size.width/5, y:0)
+        //chameleonStatic.position = CGPoint(x:scene!.size.width - chameleon.size.width/5, y:0)
+        chameleonStatic.position = CGPoint(x:-46,y:45)
         
         chameleon.colorBlendFactor = 1
         chameleon.alpha = 1
         addChild(chameleon)
-        addChild(chameleonStatic)
+        chameleon.addChild(chameleonStatic)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first{
             let location = touch.location(in: self)
             let tappedNodes = nodes(at: location)
-            
             for node in tappedNodes{
                 if node.name == "fly"{
                     let wasFlyRemoved = flyTapped(fly: node as! Fly)
