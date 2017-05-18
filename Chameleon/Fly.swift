@@ -14,13 +14,20 @@ class Fly: SKSpriteNode {
     let π = CGFloat(M_PI)
     var moveDuration:CGFloat
     var oscillationAmount:CGFloat
+    static var zIndexTracker:CGFloat = 1
     
     init(speed: CGFloat, oscillation: CGFloat) {
-        let texture = SKTexture(imageNamed: "fly")
+        let texture = SKTexture(imageNamed: "fly-colored-body")
+        let flyOutline = SKSpriteNode(imageNamed: "fly-outline")
         moveDuration = speed
         oscillationAmount = oscillation
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         name = "fly"
+        zPosition = Fly.zIndexTracker
+    
+        //Tracker gets reset in GameScene
+        Fly.zIndexTracker += 1
+        addChild(flyOutline)
     }
     
     required init(coder aDecoder: NSCoder) {

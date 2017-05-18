@@ -15,8 +15,9 @@ class GameScene: SKScene {
     //Add lives to bottom
     //Have timer be reducing bar at top
     
-    var chameleon = SKSpriteNode(imageNamed: "chameleon")
-    var chameleonStatic = SKSpriteNode(imageNamed: "chameleon-eye")
+    let chameleon = SKSpriteNode(imageNamed: "chameleon")
+    let chameleonStatic = SKSpriteNode(imageNamed: "chameleon-eye")
+    let background = SKSpriteNode(imageNamed: "rainforest")
     
     var availableColors: Array<UIColor> = [.red, .blue, .yellow, .green, .purple]
     var currentColor = UIColor()
@@ -24,7 +25,7 @@ class GameScene: SKScene {
     var level = levelManager()
     
     var flyCount = levelManager().flyCount
-    
+    var flyZIndex:CGFloat = 1
     func createFly(){
         let fly = Fly(speed: level.randomFlySpeed(), oscillation: level.randomFlyOscillation())
         fly.setScale(0.08)
@@ -47,7 +48,6 @@ class GameScene: SKScene {
         fly.moveFly()
     }
     func flyTapped(fly: Fly)-> Bool{
-        print("Fly tapped")
         if (fly.color == currentColor){
             //Animation
             if let flyIndex = fliesRemaining.index(of: fly){
@@ -61,6 +61,7 @@ class GameScene: SKScene {
     }
     
     func updateColor(){
+        rotateEye()
         if fliesRemaining.count > 0{
             let ColorIndex = Int(arc4random_uniform(UInt32(fliesRemaining.count)))
             currentColor = (fliesRemaining[ColorIndex]).color
@@ -70,9 +71,8 @@ class GameScene: SKScene {
             flyCount = level.flyCount
             for _ in 1...flyCount{
                 createFly()
-                print("Created flies: \(flyCount)")
             }
-            rotateEye()
+            Fly.zIndexTracker = 1
             updateColor()
         }
     }
@@ -83,6 +83,9 @@ class GameScene: SKScene {
     }
     override func didMove(to view: SKView) {
         
+        background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        background.zPosition = -1
+        addChild(background)
         for _ in 0...flyCount{
             createFly()
         }
