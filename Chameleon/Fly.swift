@@ -11,7 +11,7 @@ import GameKit
 
 class Fly: SKSpriteNode {
     //  Need to create variables to pass to movement functions
-    let π = CGFloat(M_PI)
+    let π = CGFloat(Double.pi)
     var moveDuration:CGFloat
     var oscillationAmount:CGFloat
     static var zIndexTracker:CGFloat = 1
